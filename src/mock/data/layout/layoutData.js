@@ -19,6 +19,11 @@ const routeDatas = [
         name: '工作台',
         group: '/dashboard',
         to: '/dashboard/workplace'
+      },
+      {
+        name: '数据库监控',
+        group: '/dashboard',
+        to: '/dashboard/DB-monitor'
       }
     ]
   },
@@ -191,19 +196,11 @@ const routeDatas = [
         name: 'Markdown编辑器',
         group: '/editor',
         to: '/editor/markdown'
-      }
-    ]
-  },
-  {
-    name: '拓展项',
-    icon: 'text_fields',
-    group: '/expend',
-    groupName: 'first',
-    children: [
+      },
       {
-        name: '流程图',
-        group: '/expend',
-        to: '/expend/flow-chart'
+        name: '测试内容',
+        group: '/editor',
+        to: '/editor/markdown'
       }
     ]
   }

@@ -33,6 +33,17 @@ const routes = [
     ]
   },
   {
+    path: '/dashboard/DB-monitor',
+    name: '/dashboard/DB-monitor',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/dashboard/DBMonitor')
+      }
+    ]
+  },
+  {
     path: '/form/basic-form',
     name: '/form/basic-form',
     component: () => import('layouts/MainLayout.vue'),
@@ -320,17 +331,6 @@ const routes = [
     ]
   },
   {
-    path: '/expend/flow-chart',
-    name: '/expend/flow-chart',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      {
-        path: '',
-        component: () => import('pages/expend/FlowChart')
-      }
-    ]
-  },
-  {
     path: '/',
     name: '/',
     component: () => import('layouts/MainLayout.vue'),
@@ -346,7 +346,8 @@ const routes = [
   // but you can also remove it
   {
     path: '*',
-    component: () => import('pages/Error404.vue')
+    // component: () => import('pages/Error404.vue')
+    component: () => import('pages/exception/404.vue')
   }
 ]
 

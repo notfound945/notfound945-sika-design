@@ -319,22 +319,16 @@
     >
       <div class="q-my-lg">
         <div class="text-center q-mb-sm">
-          <span class="inline-block q-mr-sm">Sika Design Pro</span>
-          <q-btn type="a" target="_blank" unelevated size="12px" dense round
-                 href="http://www.quasarchs.com/">
-            <q-avatar size="sm">
-              <img alt="quasar" src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-            </q-avatar>
-          </q-btn>
+          <span class="inline-block q-mr-sm">XXX 政府网</span>
           <q-btn type="a" target="_blank" unelevated size="12px" dense round
                  href="https://github.com/dq-open-cloud/quasar-sika-design">
             <q-avatar size="sm">
               <q-icon class="iconfont iconhuaban88 text-primary" />
             </q-avatar>
           </q-btn>
-          <span class="inline-block q-ml-sm">Sika Design</span>
+          <span class="inline-block q-ml-sm">版本所有</span>
         </div>
-        <div class="text-center">Copyright@2020 Sika 体验技术部出品</div>
+        <div class="text-center">copyright @ 2021</div>
       </div>
     </q-footer>
     <q-drawer
@@ -919,21 +913,6 @@ export default {
         tweenFromOpacity: 0.8,
         tweenToOpacity: 0.4
       })
-    },
-    copyQQ(qq) {
-      copyToClipboard(qq)
-        .then(() => {
-          this.$q.notify({
-            color: 'white',
-            textColor: 'positive',
-            icon: 'check_circle',
-            position: 'top',
-            message: '成功复制QQ群号：' + qq
-          })
-        })
-        .catch(() => {
-          // 失败
-        })
     },
     copy() {
       copyToClipboard(JSON.stringify(this.styleSettingsData))
