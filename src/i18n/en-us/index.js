@@ -8,6 +8,7 @@ export default {
       userPasswordLogin: 'User Password',
       userName: 'UserName',
       password: 'Password',
+      validate: 'validate',
       autoLogin: 'Auto Login',
       forgotPassword: 'Forgot Password',
       login: 'Login',

@@ -3,29 +3,23 @@
     <q-layout view="hHh LpR fff" style="font-family: 微软雅黑">
       <q-header class="bg-white text-primary shadow-1">
         <q-toolbar>
-          <q-toolbar-title> Sika Code Design</q-toolbar-title>
-          <div>Sika v1.0.0</div>
+          <q-toolbar-title> 登 录</q-toolbar-title>
+          <div>返 回</div>
         </q-toolbar>
       </q-header>
       <q-footer class="bg-white text-blue-grey-4">
         <div class="q-my-lg">
           <div class="text-center q-mb-sm">
-            <span class="inline-block q-mr-sm">Sika Design Pro</span>
-            <q-btn type="a" target="_blank" unelevated size="12px" dense round
-                   href="http://www.quasarchs.com/">
-              <q-avatar size="sm">
-                <img alt="quasar" src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-              </q-avatar>
-            </q-btn>
+            <span class="inline-block q-mr-sm"> XXX 政府中心 </span>
             <q-btn type="a" target="_blank" unelevated size="12px" dense round
                    href="https://github.com/dq-open-cloud/quasar-sika-design">
               <q-avatar size="sm">
                 <q-icon class="iconfont iconhuaban88 text-primary" />
               </q-avatar>
             </q-btn>
-            <span class="inline-block q-ml-sm">Sika Design</span>
+            <span class="inline-block q-ml-sm">民意征求系统中心</span>
           </div>
-          <div class="text-center">Copyright@2020 Sika {{ $t('user.layout.experienceDesc') }}</div>
+          <div class="text-center">{{ $t('user.layout.experienceDesc') }}</div>
         </div>
       </q-footer>
       <q-page-container>
@@ -36,10 +30,10 @@
                 <q-avatar class="q-mr-md">
                   <img alt="Sika logo" src="imgs/logo/sika-logo.png" />
                 </q-avatar>
-                <strong>Sika Design</strong>
+                <strong>民意征集系统后台</strong>
               </h4>
               <p class="text-grey">
-                Sika Design {{ $t('user.layout.dawanDesc') }}
+                {{ $t('user.layout.dawanDesc') }}
               </p>
             </div>
             <router-view />

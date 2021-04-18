@@ -1,13 +1,14 @@
 export default {
   user: {
     layout: {
-      dawanDesc: '是深圳大湾区最具影响力的Web设计样例',
-      experienceDesc: '体验技术部出品'
+      dawanDesc: '民征系统管理后台登录中心',
+      experienceDesc: ''
     },
     login: {
       userPasswordLogin: '用户密码登录',
       userName: '用户名',
       password: '密码',
+      validate: '验证码',
       autoLogin: '自动登录',
       forgotPassword: '忘记密码',
       login: '登 录',

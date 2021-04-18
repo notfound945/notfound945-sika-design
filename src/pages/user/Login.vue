@@ -12,7 +12,6 @@
           class="text-black"
         >
           <q-tab name="mails" no-caps :label="$t('user.login.userPasswordLogin')" />
-          <q-tab name="alarms" no-caps :label="$t('user.login.phoneLogin')" />
         </q-tabs>
         <div class="q-gutter-y-sm">
           <q-tab-panels v-model="tab" class="text-center">
@@ -34,7 +33,7 @@
                     ]"
                   >
                     <template v-slot:prepend>
-                      <q-icon name="event" />
+                      <q-icon name="person" />
                     </template>
                   </q-input>
                 </div>
@@ -55,7 +54,7 @@
                     :rules="[(val) => (val && val.length > 0) || '请输入密码']"
                   >
                     <template v-slot:prepend>
-                      <q-icon name="event" />
+                      <q-icon name="https" />
                     </template>
                     <template v-slot:append>
                       <q-icon
@@ -65,56 +64,20 @@
                       />
                     </template>
                   </q-input>
-                </div>
-              </div>
-            </q-tab-panel>
-
-            <q-tab-panel name="alarms" class="q-col-gutter-y-sm">
-              <div class="row">
-                <div class="col">
                   <q-input
                     outlined
                     clearable
                     clear-icon="cancel"
-                    v-model="name"
+                    v-model="validate"
                     dense
                     debounce="500"
-                    :label="$t('user.login.phone')"
+                    :label="validateLabel"
                     lazy-rules
                     square
-                    :rules="[
-                      (val) => (val && val.length > 0) || '请输入用户名'
-                    ]"
+                    :rules="[(val) => (val && val.length > 0) || '请输入验证码']"
                   >
                     <template v-slot:prepend>
-                      <q-icon name="event" />
-                    </template>
-                  </q-input>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <q-input
-                    outlined
-                    :type="isPwd ? 'password' : 'text'"
-                    v-model="password"
-                    dense
-                    debounce="500"
-                    :label="$t('user.login.verifyCode')"
-                    lazy-rules
-                    square
-                    :rules="[(val) => (val && val.length > 0) || '请输入密码']"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon name="event" />
-                    </template>
-                    <template v-slot:after>
-                      <q-btn
-                        unelevated
-                        color="secondary"
-                        class="no-border-radius"
-                        :label="$t('user.login.getCode')"
-                      />
+                      <q-icon name="verified_user" />
                     </template>
                   </q-input>
                 </div>
@@ -122,14 +85,6 @@
             </q-tab-panel>
           </q-tab-panels>
           <div class="q-mx-md">
-            <div class="row">
-              <div class="col text-left">
-                <q-checkbox v-model="autoLogin" :label="$t('user.login.autoLogin')" />
-              </div>
-              <div class="col text-right">
-                <q-btn no-caps color="primary" flat :label="$t('user.login.forgotPassword')" />
-              </div>
-            </div>
             <div class="row">
               <div class="col">
                 <q-btn
@@ -148,31 +103,6 @@
                     {{ $t('user.login.login') }} ...
                   </template>
                 </q-btn>
-              </div>
-            </div>
-            <div class="row q-pt-md">
-              <div class="col-auto text-left q-pt-sm">
-                <span>{{ $t('user.login.otherLoginType') }}</span>
-                <q-icon
-                  v-for="(val, key) in loginIcon"
-                  v-bind:key="key"
-                  :size="val.size"
-                  :class="[val.class.iconName, val.class.color]"
-                  @click="thirdLogin(key)"
-                  @mouseover="mouseOver(key, $event)"
-                  @mouseleave="mouseLeave(key, $event)"
-                  style="cursor: pointer"
-                  class="iconfont q-ml-sm"
-                />
-              </div>
-              <div class="col text-right">
-                <q-btn
-                  to="/user/register"
-                  color="primary"
-                  flat
-                  no-caps
-                  :label="$t('user.login.register')"
-                />
               </div>
             </div>
           </div>
@@ -203,39 +133,29 @@
 </template>
 
 <script>
+import { postRequest, getRequest } from 'utils/axios'
+
 export default {
   name: 'Login',
+  async mounted () {
+    // 加载验证码
+    this.verifyImage = await getRequest(
+      '/api/getCaptchaImage', 'blob').then(result => {
+      return result.data
+    }).catch(() => {
+      return null
+    })
+    const blob = new Blob([this.verifyImage], { type: 'image/png;charset=utf-8' })
+    this.imgUrl = window.URL.createObjectURL(blob)
+    console.log(this.imgUrl)
+  },
   data() {
     return {
+      // 验证图片
+      verifyImage: null,
+      // 验证码图片地址
+      imgUrl: '',
       iconObject: {
-        weixin: {
-          class: {
-            iconName: 'iconweixin',
-            color: 'text-grey'
-          },
-          size: '22px'
-        },
-        zhifubao: {
-          class: {
-            iconName: 'iconzhifubao',
-            color: 'text-grey'
-          },
-          size: '20px'
-        },
-        taobao: {
-          class: {
-            iconName: 'icontaobao',
-            color: 'text-grey'
-          },
-          size: '22px'
-        },
-        weibo: {
-          class: {
-            iconName: 'iconweibo',
-            color: 'text-grey'
-          },
-          size: '20px'
-        },
         github: {
           class: {
             iconName: 'iconhuaban88',
@@ -248,11 +168,13 @@ export default {
       iconActive: {
         weibo: 'grey'
       },
-      userNameLabel: this.$t('user.login.userName') + ':admin',
-      passwordLabel: this.$t('user.login.userName') + ':sika',
+      userNameLabel: this.$t('user.login.userName'),
+      passwordLabel: this.$t('user.login.password'),
+      validateLabel: this.$t('user.login.validate'),
       tab: 'mails',
       name: null,
       password: null,
+      validate: null,
       accept: false,
       isPwd: true,
       autoLogin: true,
@@ -274,6 +196,41 @@ export default {
           position: 'top',
           message: '用户名或密码不正确'
         })
+
+        postRequest('/api/login', params).then(res => {
+          console.log('res ', res)
+          if (res.data.responseStatus === 200) {
+            console.log('登录成功')
+            Notify.create({
+              position: 'top',
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'sentiment_very_satisfied',
+              message: res.data.responseRemark
+            })
+          } else {
+            if (res) {
+              Notify.create({
+                position: 'top',
+                color: 'red-4',
+                textColor: 'white',
+                icon: 'cancel',
+                message: res.data.responseRemark
+              })
+            } else {
+              Notify.create({
+                position: 'top',
+                color: 'red-6',
+                textColor: 'white',
+                icon: 'cancel',
+                message: '登录异常'
+              })
+            }
+          }
+        }).catch(err => {
+          console.error(err)
+        })
+
         return
       }
       this.loginLogin = true
