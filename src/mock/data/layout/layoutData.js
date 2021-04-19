@@ -28,6 +28,29 @@ const routeDatas = [
     ]
   },
   {
+    name: '政务公开',
+    icon: 'public',
+    group: '/public-government',
+    groupName: 'first',
+    children: [
+      {
+        name: '最新文件',
+        group: '/public-government',
+        to: '/public-government/latest-file'
+      },
+      {
+        name: '发布最新文件',
+        group: '/public-government',
+        to: '/public-government/public-latest-file'
+      },
+      {
+        name: '部门动态',
+        group: '/public-government',
+        to: '/public-government/department-dynamic'
+      }
+    ]
+  },
+  {
     name: '表单页',
     icon: 'edit_road',
     group: '/form',

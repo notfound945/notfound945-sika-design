@@ -44,6 +44,39 @@ const routes = [
     ]
   },
   {
+    path: '/public-government/latest-file',
+    name: '/publicgovernment/latest-file',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/public-government/LatestFile')
+      }
+    ]
+  },
+  {
+    path: '/public-government/department-dynamic',
+    name: '/public-government/department-dynamic',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/public-government/DepartmentDynamic')
+      }
+    ]
+  },
+  {
+    path: '/public-government/public-latest-file',
+    name: '/public-government/public-latest-file',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/public-government/PublicLatestFile')
+      }
+    ]
+  },
+  {
     path: '/form/basic-form',
     name: '/form/basic-form',
     component: () => import('layouts/MainLayout.vue'),
