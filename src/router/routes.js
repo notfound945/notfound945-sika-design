@@ -77,6 +77,17 @@ const routes = [
     ]
   },
   {
+    path: '/public-government/display-article',
+    name: '/public-government/display-article',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/public-government/DisplayArticle')
+      }
+    ]
+  },
+  {
     path: '/form/basic-form',
     name: '/form/basic-form',
     component: () => import('layouts/MainLayout.vue'),

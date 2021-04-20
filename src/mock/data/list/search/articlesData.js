@@ -13,7 +13,7 @@ const imgSrcs = [
 ]
 const articlesDatas = []
 for (let i = 0; i < 36; ++i) {
-  const publishTimeTemp = date.formatDate(dateUtil.buildRandomDate(2020), 'YYYY-MM-DD HH:mm')
+  const publishTimeTemp = date.formatDate(dateUtil.buildRandomDate(2021), 'YYYY-MM-DD HH:mm')
   articlesDatas.push({
     index: i,
     imgSrc: commonUtil.getRandomData(imgSrcs),

@@ -47,6 +47,11 @@ const routeDatas = [
         name: '部门动态',
         group: '/public-government',
         to: '/public-government/department-dynamic'
+      },
+      {
+        name: '详情页',
+        group: '/public-government',
+        to: '/public-government/display-article'
       }
     ]
   },
