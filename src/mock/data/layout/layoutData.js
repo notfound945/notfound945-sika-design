@@ -56,6 +56,86 @@ const routeDatas = [
     ]
   },
   {
+    name: '民意征集',
+    icon: 'record_voice_over',
+    group: '/collect',
+    groupName: 'first',
+    children: [
+      {
+        name: '发布征集',
+        to: '/collect/publish-collect'
+      },
+      {
+        name: '征集列表',
+        to: '/collect/list-collect'
+      },
+      {
+        name: '征集反馈',
+        to: '/collect/callback-collect'
+      },
+      {
+        name: '详情页',
+        to: '/collect/display-collect'
+      }
+    ]
+  },
+  {
+    name: '调查问卷',
+    icon: 'plagiarism',
+    group: '/survey',
+    groupName: 'first',
+    children: [
+      {
+        name: '发起问卷',
+        group: '/survey',
+        to: '/survey/publish-survey'
+      },
+      {
+        name: '问卷列表',
+        group: '/survey',
+        to: '/survey/list-survey'
+      },
+      {
+        name: '问卷分析',
+        group: '/survey',
+        to: '/survey/analyze-survey'
+      },
+      {
+        name: '详情页',
+        group: '/survey',
+        to: '/survey/display-survey'
+      }
+    ]
+  },
+  {
+    name: '留言选登',
+    icon: 'question_answer',
+    group: '/message',
+    groupName: 'first',
+    children: [
+      {
+        name: '新建留言',
+        group: '/message',
+        to: '/message/new-message'
+      },
+      {
+        name: '所有留言',
+        group: '/message',
+        to: '/message/list-message'
+      },
+      {
+        name: '回复留言',
+        group: '/message',
+        to: '/message/reply-message'
+      },
+      {
+        name: '留言详情',
+        group: '/message',
+        to: '/message/display-message'
+      }
+    ]
+  },
+  {
     name: '表单页',
     icon: 'edit_road',
     group: '/form',

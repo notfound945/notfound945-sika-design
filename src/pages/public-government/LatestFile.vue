@@ -105,7 +105,7 @@
       <!--      <sc-page :items="articlesData.articlesDatas" class="q-mt-sm">-->
       <sc-page :items='articles' class='q-mt-sm'>
         <template v-slot:item='props'>
-          <div class='q-pb-sm' @click='test(props.item.id, props.item.name)'>
+          <div class='q-pb-sm' @click='test(props.item)'>
             <sc-shadow class='q-pa-sm'>
               <q-item-section>
                 <q-item-label class='text-body1 q-mb-sm'>
@@ -224,12 +224,11 @@ export default {
     }
   },
   methods: {
-    test(id, title) {
+    test(item) {
       this.$router.push({
         path: '/public-government/display-article',
         query: {
-          id: id,
-          title: title
+          item: item
         }
       })
       // window.open(details.href, '_blank')

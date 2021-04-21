@@ -154,7 +154,7 @@ export default {
   async mounted() {
     // 加载验证码
     this.verifyImage = await getRequest(
-      '/api/getCaptchaImage', 'blob').then(result => {
+      '/api/get-captcha-image', 'blob').then(result => {
       return result.data
     }).catch(() => {
       return null
@@ -252,7 +252,7 @@ export default {
       this.imgUrl = null
       // 加载验证码
       this.verifyImage = await getRequest(
-        '/api/getCaptchaImage', 'blob').then(result => {
+        '/api/get-captcha-image', 'blob').then(result => {
         return result.data
       }).catch(() => {
         return null

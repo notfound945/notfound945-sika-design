@@ -88,6 +88,138 @@ const routes = [
     ]
   },
   {
+    path: '/collect/publish-collect',
+    name: '/collect/publish-collect',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/collect/PublishCollect')
+      }
+    ]
+  },
+  {
+    path: '/collect/list-collect',
+    name: '/collect/list-collect',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/collect/ListCollect')
+      }
+    ]
+  },
+  {
+    path: '/collect/callback-collect',
+    name: '/collect/callback-collect',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/collect/CallbackCollect')
+      }
+    ]
+  },
+  {
+    path: '/collect/display-collect',
+    name: '/collect/display-collect',
+    component: () => import('layouts/MainLayout'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/collect/DisplayCollect')
+      }
+    ]
+  },
+  {
+    path: '/survey/publish-survey',
+    name: '/survey/publish-survey',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/survey/PublishSurvey')
+      }
+    ]
+  },
+  {
+    path: '/survey/list-survey',
+    name: '/survey/list-survey',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/survey/ListSurvey')
+      }
+    ]
+  },
+  {
+    path: '/survey/analyze-survey',
+    name: '/survey/analyze-survey',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/survey/AnalyzeSurvey')
+      }
+    ]
+  },
+  {
+    path: '/survey/display-survey',
+    name: '/survey/display-survey',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/survey/DisplaySurvey')
+      }
+    ]
+  },
+  {
+    path: '/message/new-message',
+    name: '/message/new-message',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/message/NewMessage')
+      }
+    ]
+  },
+  {
+    path: '/message/list-message',
+    name: '/message/list-message',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/message/ListMessage')
+      }
+    ]
+  },
+  {
+    path: '/message/reply-message',
+    name: '/message/reply-message',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/message/ReplyMessage')
+      }
+    ]
+  },
+  {
+    path: '/message/display-message',
+    name: '/message/display-message',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/message/DisplayMessage')
+      }
+    ]
+  },
+  {
     path: '/form/basic-form',
     name: '/form/basic-form',
     component: () => import('layouts/MainLayout.vue'),

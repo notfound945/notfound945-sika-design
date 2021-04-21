@@ -38,6 +38,7 @@
     "velocity-animate": "^1.5.2",
     "vue-i18n": "^8.22.2",
     "vue-numeral-filter": "^1.4.0",
+    "vue-pdf": "^4.2.0",
     "wangeditor": "^4.5.2"
   },
   "devDependencies": {

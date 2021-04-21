@@ -37,6 +37,15 @@ export const postRequest = (url, params) => {
   })
 }
 
+export const postRequestBlob = (url, params) => {
+  return axios({
+    method: 'post',
+    url: `${base}${url}`,
+    data: qs.stringify(params),
+    responseType: 'blob'
+  })
+}
+
 export const uploadFileRequest = (url, params) => {
   return axios({
     method: 'post',
