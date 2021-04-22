@@ -1,7 +1,7 @@
 <template>
   <div class='sc-design'>
     <div class='bg-white text-h6 q-pa-md'>
-      <strong>查看所有留言</strong>
+      <strong>管理所有留言</strong>
     </div>
     <div class='q-pt-md q-mx-md'>
       <q-card square flat class='q-gutter-y-md q-pb-md'>
@@ -190,7 +190,7 @@
 import { getRequest } from 'src/utils/axios'
 
 export default {
-  name: 'ListMessage',
+  name: 'ManageMessage',
   data() {
     return {
       departments: null,
@@ -295,7 +295,7 @@ export default {
     },
     getMessageByID(evt, row) {
       this.$router.push({
-        path: '/message/display-message',
+        path: '/message/reply-message',
         query: {
           id: row.id
         }

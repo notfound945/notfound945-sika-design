@@ -2,7 +2,7 @@
   <div>
     <div class='bg-white q-pa-md'>
       <div class='text-h6'>
-        <strong>留言详情</strong>
+        <strong>{{ inputData.title }}</strong>
       </div>
       <div class='text-body2'>
         当前留言状态：
@@ -212,7 +212,7 @@ export default {
       departmentMessage: '',
       targetOption: 'public',
       inputData: {
-        title: null,
+        title: '请选择留言查看',
         object: null,
         nickname: null,
         postContent: null,
@@ -238,13 +238,15 @@ export default {
     })
     const departmentData = department.data
     const temp = []
+    const temp2 = []
     Object.keys(departmentData).forEach(function(key) {
       temp.push({
         label: departmentData[key].name,
         value: departmentData[key].id
       })
+      temp2.push(departmentData[key].name)
     })
-    this.departmentValue = temp
+    this.departmentValue = temp2
     if (!_.isUndefined(messageID)) {
       const message = await postRequest('/api/get-message-by-id', { id: messageID }).then(res => {
         return res.data
@@ -252,9 +254,8 @@ export default {
         return null
       })
       this.inputData = message.data
-      console.log('temp ', temp)
-      this.inputData.postDepartment = temp[this.inputData.postDepartment].label
-      this.inputData.doDepartment = temp[this.inputData.doDepartment].label
+      this.inputData.postDepartment = temp2[this.inputData.postDepartment]
+      this.inputData.doDepartment = temp2[this.inputData.doDepartment]
     }
   },
   watch: {}

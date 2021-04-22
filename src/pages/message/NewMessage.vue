@@ -171,7 +171,7 @@
                     type='submit'
                     :loading='loading'
                     color='primary full-width'
-                    label='保 存'
+                    label='新 建'
                     size='md'
                   >
                     <template v-slot:loading>
@@ -231,7 +231,7 @@ export default {
         icon: 'cloud_done',
         group: false,
         html: true,
-        message: '保存成功！！'
+        message: '新建留言成功！！'
       })
       const params = this.inputData
       params.postDepartment = this.inputData.postDepartment.value
@@ -247,7 +247,6 @@ export default {
       for (const key in this.inputData) {
         this.inputData[key] = null
       }
-      this.$refs.startEndDate.startAndEndDate = null
     }
   },
   computed: {},

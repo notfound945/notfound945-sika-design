@@ -119,9 +119,14 @@ const routeDatas = [
         to: '/message/new-message'
       },
       {
-        name: '所有留言',
+        name: '查看所有留言',
         group: '/message',
         to: '/message/list-message'
+      },
+      {
+        name: '管理所有留言',
+        group: '/message',
+        to: '/message/manage-message'
       },
       {
         name: '回复留言',

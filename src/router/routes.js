@@ -220,6 +220,17 @@ const routes = [
     ]
   },
   {
+    path: '/message/manage-message',
+    name: '/message/manage-message',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/message/ManageMessage')
+      }
+    ]
+  },
+  {
     path: '/form/basic-form',
     name: '/form/basic-form',
     component: () => import('layouts/MainLayout.vue'),
