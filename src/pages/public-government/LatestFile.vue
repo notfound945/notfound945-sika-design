@@ -142,7 +142,7 @@
                     text-color='primary'
                     class='col-auto cursor-pointer'
                   >
-                    {{ props.item.owner }}
+                    {{ departmentValue[props.item.department] }}
                   </q-chip>
                   <span class='col-sm-auto col-xs-12 q-pl-xs'>
                       {{ props.item.date }}
@@ -204,12 +204,28 @@ export default {
     ScPage,
     ScShadow
   },
-  mounted() {
+  async mounted() {
     getRequest('/api/get-all-articles').then(res => {
       this.articles = res.data.data
     }).catch(err => {
       console.log(err)
     })
+    const department = await getRequest('/api/get-all-departments').then(res => {
+      return res.data
+    }).catch(() => {
+      return null
+    })
+    const departmentData = department.data
+    const temp = []
+    const temp2 = []
+    Object.keys(departmentData).forEach(function(key) {
+      temp.push({
+        label: departmentData[key].name,
+        value: departmentData[key].id
+      })
+      temp2.push(departmentData[key].name)
+    })
+    this.departmentValue = temp2
   },
   data() {
     return {
@@ -220,7 +236,8 @@ export default {
       activeUser: '张三',
       goodPing: '优秀',
       owners: ownersDefault,
-      queryData: ''
+      queryData: '',
+      departmentValue: []
     }
   },
   methods: {
