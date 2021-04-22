@@ -7,7 +7,7 @@
       <q-card square flat class='q-gutter-y-md q-pb-md'>
         <q-form>
           <div class='row q-gutter-y-sm q-pt-sm'>
-            <q-item v-show='showQuery' class='col-xl-3 col-sm-6 col-xs-12'>
+            <q-item class='col-xl-3 col-sm-6 col-xs-12'>
               <q-item-section class='col-2 text-right gt-sm'>
                 <q-item-label>留言标题:</q-item-label>
               </q-item-section>
@@ -32,8 +32,8 @@
                   behavior='menu'
                   outlined
                   options-dense
-                  v-model='queryCondition.state'
-                  :options='tableListData.stateValue'
+                  v-model='queryCondition.isDone'
+                  :options='isDone'
                   label='状态'
                   dense
                   square
@@ -51,14 +51,30 @@
                   behavior='menu'
                   outlined
                   options-dense
-                  v-model='queryCondition.state'
-                  :options='tableListData.stateValue'
-                  label='状态'
+                  v-model='queryCondition.postDepartment'
+                  :options='departments'
+                  label='部门'
                   dense
                   square
                   clearable
                 >
                 </q-select>
+              </q-item-section>
+            </q-item>
+            <q-item v-show='showQuery' class='col-xl-3 col-sm-6 col-xs-12'>
+              <q-item-section v-show='$q.screen.gt.sm' class='col-2 text-right'>
+                <q-item-label>昵称:</q-item-label>
+              </q-item-section>
+              <q-item-section v-show='showQuery' class='col'>
+                <q-input
+                  outlined
+                  v-model='queryCondition.nickname'
+                  label='昵称'
+                  dense
+                  square
+                  clearable
+                >
+                </q-input>
               </q-item-section>
             </q-item>
             <q-item class='col-xl-3 col-sm-6 col-xs-12 q-pr-sm'>
@@ -106,12 +122,10 @@
               flat
               title-class='text-body1'
               color='primary'
-              :data='listDatas.datas'
+              :data='filterListData'
               :columns='listDatas.columns'
               :visible-columns='visibleColumns'
               row-key='id'
-              :selected-rows-label='getSelectedString'
-              :selected.sync='selected'
               :pagination.sync='pagination'
               hide-selected-banner
               virtual-scroll
@@ -120,12 +134,6 @@
             >
               <template v-slot:top-right='props'>
                 <div>
-                  <q-btn rounded flat dense size='md' icon='refresh'>
-                    <q-tooltip>刷新</q-tooltip>
-                  </q-btn>
-                  <q-btn rounded flat dense size='md' icon='unfold_less'>
-                    <q-tooltip>密度</q-tooltip>
-                  </q-btn>
                   <q-btn rounded flat dense size='md' icon='settings'>
                     <q-menu :offset='[0, 12]'>
                       <q-list dense>
@@ -180,14 +188,13 @@
 
 <script>
 import { date } from 'quasar'
-import TABLE_LIST_DATA from '@/mock/data/list/tableListData'
 import { getRequest } from 'src/utils/axios'
 
 export default {
   name: 'ListMessage',
   data() {
     return {
-      departments: [],
+      departments: null,
       listDatas: {
         columns: [{
           check: true,
@@ -211,7 +218,7 @@ export default {
           align: 'left',
           label: '被留言部门',
           field: 'postDepartment',
-          format: val => this.departments[`${val}`].name
+          format: val => this.departmentValue[`${val}`]
         }, {
           check: true,
           name: 'postDate',
@@ -236,11 +243,23 @@ export default {
         }],
         datas: []
       },
-      tableListData: TABLE_LIST_DATA,
       filterListData: [],
       queryCondition: {
-        title: null
+        title: null,
+        nickname: null,
+        postDepartment: null,
+        isDone: null
       },
+      isDone: [
+        {
+          label: '未处理',
+          value: 0
+        }, {
+          label: '已处理',
+          value: 1
+        }
+      ],
+      departmentValue: null,
       queryLoad: false,
       ruleName: null,
       addData: false,
@@ -276,15 +295,14 @@ export default {
       this.showQuery = false
       this.tableLabel = '展开'
     },
-    getSelectedString() {
-      if (this.selected.length === 0) {
-        return ''
-      } else {
-        return '选择：' + `${this.selected.length} / ${this.data.length}`
-      }
-    },
     getMessageByID(evt, row) {
       console.log('row id', row.id)
+    },
+    onReset() {
+      this.ruleName = null
+    },
+    resetQuery() {
+      this.queryCondition = {}
     },
     select(columnFromClient) {
       this.visibleColumns = []
@@ -297,12 +315,6 @@ export default {
           this.visibleColumns[i] = columns[i].name
         }
       }
-    },
-    onReset() {
-      this.ruleName = null
-    },
-    resetQuery() {
-      this.queryCondition = {}
     },
     doQuery() {
       this.queryLoad = true
@@ -320,20 +332,23 @@ export default {
     },
     isMatchData(data) {
       const listQueryData = this.queryCondition
-      let ruleNameFlag = false
-      console.log(ruleNameFlag)
-      if (!listQueryData.title || data.ruleName.search(listQueryData.title) !== -1) {
-        ruleNameFlag = true
+      let titleFlag = false
+      if (!listQueryData.title || data.title.search(listQueryData.title) !== -1) {
+        titleFlag = true
       }
-      let descFlag = false
-      if (!listQueryData.desc || data.desc.search(listQueryData.desc) !== -1) {
-        descFlag = true
+      let nicknameFlag = false
+      if (!listQueryData.nickname || data.nickname.search(listQueryData.nickname) !== -1) {
+        nicknameFlag = true
       }
-      let stateFlag = false
-      if (!listQueryData.state || data.state === listQueryData.state) {
-        stateFlag = true
+      let postDepartmentFlag = false
+      if (!listQueryData.postDepartment || data.postDepartment === listQueryData.postDepartment.value) {
+        postDepartmentFlag = true
       }
-      return ruleNameFlag && descFlag && stateFlag
+      let isDoneFlag = false
+      if (!listQueryData.isDone || data.isDone === listQueryData.isDone.value) {
+        isDoneFlag = true
+      }
+      return isDoneFlag && titleFlag && nicknameFlag && postDepartmentFlag
     }
   },
   computed: {
@@ -377,13 +392,18 @@ export default {
       }).catch(() => {
         return null
       })
-    this.departments = department.data
+    const departmentData = department.data
+    const temp = []
+    const temp2 = []
+    Object.keys(departmentData).forEach(function(key) {
+      temp.push({ label: departmentData[key].name, value: departmentData[key].id })
+      temp2.push(departmentData[key].name)
+    })
+    this.departmentValue = temp2
+    this.departments = temp
   },
   watch: {
-    selected(newSelected, oldSelected) {
-      this.seamless = newSelected.length > 0
-    },
-    tableListData: {
+    queryCondition: {
       handler(newValue, oldValue) {
         this.doQuery()
       },
