@@ -217,8 +217,8 @@ export default {
           name: 'postDepartment',
           align: 'left',
           label: '被留言部门',
-          field: 'postDepartment',
-          format: val => this.departmentValue[`${val}`]
+          field: 'postDepartment'
+          // format: val => this.departmentValue[`${val}`]
         }, {
           check: true,
           name: 'postDate',
@@ -296,7 +296,12 @@ export default {
       this.tableLabel = '展开'
     },
     getMessageByID(evt, row) {
-      console.log('row id', row.id)
+      this.$router.push({
+        path: '/message/display-message',
+        query: {
+          id: row.id
+        }
+      })
     },
     onReset() {
       this.ruleName = null
@@ -396,7 +401,10 @@ export default {
     const temp = []
     const temp2 = []
     Object.keys(departmentData).forEach(function(key) {
-      temp.push({ label: departmentData[key].name, value: departmentData[key].id })
+      temp.push({
+        label: departmentData[key].name,
+        value: departmentData[key].id
+      })
       temp2.push(departmentData[key].name)
     })
     this.departmentValue = temp2
