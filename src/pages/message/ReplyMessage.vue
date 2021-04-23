@@ -114,7 +114,7 @@
           <div class='row q-gutter-y-lg q-px-lg items-center'>
             <span class='col-xl-12 col-md-12 col-sm-12 col-xs-12'>
               <q-item-label class='q-pr-md q-mb-sm'>请输入留言回复</q-item-label>
-              <q-item-label v-if='inputData.isDone'>
+              <q-item-label v-if='inputData.isDone || inputData.isDone === null'>
                 <q-input
                   disable
                   class='q-pb-none'
@@ -220,23 +220,35 @@ export default {
   },
   methods: {
     async onSubmit() {
-      this.$q.notify({
-        position: 'top',
-        color: 'info',
-        textColor: 'white',
-        icon: 'cloud_done',
-        group: false,
-        html: true,
-        message: '留言回复成功！！'
-      })
-      const params = this.inputData
-      params.postDepartment = this.inputData.postDepartment.value
-      const result = await postRequest('/api/reply-message', params).then(res => {
-        return res
-      }).catch(() => {
-        return null
-      })
-      console.log(result)
+      if (this.inputData.doContent != null) {
+        this.$q.notify({
+          position: 'top',
+          color: 'info',
+          textColor: 'white',
+          icon: 'cloud_done',
+          group: false,
+          html: true,
+          message: '留言回复成功！！'
+        })
+        const params = this.inputData
+        params.postDepartment = this.inputData.postDepartment.value
+        const result = await postRequest('/api/reply-message', params).then(res => {
+          return res
+        }).catch(() => {
+          return null
+        })
+        console.log(result)
+      } else {
+        this.$q.notify({
+          position: 'top',
+          color: 'error',
+          textColor: 'white',
+          icon: 'cloud_done',
+          group: false,
+          html: true,
+          message: '请填写留言信息'
+        })
+      }
     },
     onReset() {
       this.inputData.doContent = null

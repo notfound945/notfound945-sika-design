@@ -28,118 +28,39 @@
           >
             <q-form class="full-width" @submit="oneOnSubmit">
               <div class="row q-gutter-y-sm q-pb-sm">
+                <span class='col-sm-12 col-xl-12 col-md-12'>
+                  <q-item-label class='q-gutter-md'>
+                     <q-btn
+                       unelevated
+                       class="no-border-radius"
+                       color="primary"
+                       @click='addSelectOption'
+                       label="添加单选项"
+                     />
+                     <q-btn
+                       unelevated
+                       class="no-border-radius"
+                       color="primary"
+                       @click='addFillOption'
+                       label="添加填空项"
+                     />
+                  </q-item-label>
+                  <q-item-label>
+
+                  </q-item-label>
+                </span>
               <span
                 class="col-sm-4 col-xs-12"
                 :class="{ 'justify-end': $q.screen.gt.xs }"
               >
-                <q-item-label
-                  class="q-pr-md q-pt-sm"
-                  :class="{ 'text-right': $q.screen.gt.xs }"
-                >
-                  付款账户:
-                </q-item-label>
-              </span>
-                <span class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-12">
-                <q-item-label>
-                  <q-input
-                    outlined
-                    v-model="stepFormData.transferData.payerAccount"
-                    placeholder="付款账户"
-                    dense
-                    square
-                    clearable
-                    :rules="[ val => val && val.length > 0 || '请输入付款账户']"
-                  >
-                  </q-input>
-                </q-item-label>
-              </span>
-              </div>
-              <div class="row q-gutter-y-sm q-pb-sm">
-              <span
-                class="col-sm-4 col-xs-12"
-                :class="{ 'justify-end': $q.screen.gt.xs }"
-              >
-                <q-item-label
-                  class="q-pr-md"
-                  :class="{ 'text-right q-pt-sm': $q.screen.gt.xs }"
-                >
-                  收款账户:
-                </q-item-label>
-              </span>
-                <span class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-12">
-                <q-item-label>
-                  <q-input
-                    outlined
-                    v-model="stepFormData.transferData.payeeAccount"
-                    placeholder="收款账户"
-                    :rules="[ val => val && val.length > 0 || '请输入收款账户']"
-                    dense
-                    clearable
-                    square
-                  >
-                  </q-input>
-                </q-item-label>
-              </span>
-              </div>
-              <div class="row q-gutter-y-sm q-pb-sm">
-              <span
-                class="col-sm-4 col-xs-12"
-                :class="{ 'justify-end': $q.screen.gt.xs }"
-              >
-                <q-item-label
-                  class="q-pr-md"
-                  :class="{ 'text-right q-pt-sm': $q.screen.gt.xs }"
-                >
-                  收款人姓名:
-                </q-item-label>
-              </span>
-                <span class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-12">
-                <q-item-label>
-                  <q-input
-                    outlined
-                    v-model="stepFormData.transferData.payeeName"
-                    placeholder="收款人姓名"
-                    :rules="[ val => val && val.length > 0 || '请输入收款人姓名']"
-                    dense
-                    clearable
-                    square
-                  >
-                  </q-input>
-                </q-item-label>
-              </span>
-              </div>
-              <div class="row q-gutter-y-sm q-pb-sm">
-              <span
-                class="col-sm-4 col-xs-12"
-                :class="{ 'justify-end': $q.screen.gt.xs }"
-              >
-                <q-item-label
-                  class="q-pr-md"
-                  :class="{ 'text-right q-pt-sm': $q.screen.gt.xs }"
-                >转账金额:</q-item-label
-                >
-              </span>
-                <span class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-12">
-                <q-item-label>
-                  <q-input
-                    outlined
-                    type="number"
-                    v-model="stepFormData.transferData.amount"
-                    placeholder="转账金额"
-                    :rules="[ val => val && val > 0  || '转账金额应大于0']"
-                    dense
-                    square
-                    prefix="￥"
-                  >
-                  </q-input>
-                </q-item-label>
+                <RadioField/>
+                <q-separator inset />
+                <FillField/>
               </span>
               </div>
               <q-stepper-navigation class="q-pt-sm">
                 <div class="row items-center">
-                  <span
-                    class="offset-sm-4 col-xl-3 col-lg-4 col-md-5 col-sm-6 col-xs-12"
-                  >
+                <span class="offset-sm-3 col-sm-auto col-xs-12">
                     <q-btn
                       unelevated
                       class="no-border-radius"
@@ -289,9 +210,15 @@
 
 <script>
 import STEP_FORM_DATA from '@/mock/data/form/stepFormData'
+import RadioField from 'components/field/RadioField'
+import FillField from 'components/field/FillField'
 
 export default {
   name: 'PublishSurvey',
+  components: {
+    RadioField,
+    FillField
+  },
   data() {
     return {
       stepFormData: STEP_FORM_DATA,
@@ -299,6 +226,12 @@ export default {
     }
   },
   methods: {
+    addSelectOption() {
+      console.log('add select ')
+    },
+    addFillOption() {
+      console.log('add fill')
+    },
     oneOnSubmit() {
       this.step = 2
     },

@@ -1,8 +1,11 @@
 <template>
-  <div>分析问卷</div>
+  <div>
+    问卷分析
+  </div>
 </template>
 
 <script>
+
 export default {
   name: 'AnalyzeSurvey'
 }
