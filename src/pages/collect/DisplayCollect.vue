@@ -67,19 +67,69 @@
           </div>
         </q-card>
       </q-form>
-      <q-form>
-        <q-card square flat class='q-mt-lg q-pt-md q-pb-lg'>
-          <div class='row q-px-sm q-mx-md items-center'>
-            <q-item-label class='text-body1'>文件内容</q-item-label>
-          </div>
-          <q-separator spaced='15px' />
-          <q-item-label>
-            <div class='row q-gutter-y-lg q-px-lg items-center'>
+      <q-card square flat class='q-mt-lg q-pt-md q-pb-lg'>
+        <div class='row q-px-sm q-mx-md items-center'>
+          <q-item-label class='text-body1'>文件内容</q-item-label>
+        </div>
+        <q-separator spaced='15px' />
+        <q-item-label>
+          <div class='row q-gutter-y-lg q-px-lg items-center'>
             <span class='col-xs-12 offset-sm col-sm-12 offset-md col-md-12'>
               <iframe src='' id='iframe' frameborder='0' style='width: 100%; height: 1000px'></iframe>
             </span>
-            </div>
-          </q-item-label>
+          </div>
+        </q-item-label>
+      </q-card>
+      <q-form>
+
+        <q-card square flat class='q-gutter-y-md q-my-md q-py-sm'>
+          <div class='row q-px-sm q-mx-md items-center'>
+            <q-item-label class='text-body1'>留言内容</q-item-label>
+          </div>
+          <q-separator spaced='15px' />
+          <div class='row q-gutter-y-lg q-px-lg items-center'>
+          <span class='col-xs-12 offset-sm col-sm-6 offset-md col-md-5 sc-design'>
+              <q-item-label class='q-pr-md q-mb-sm'>昵称</q-item-label>
+              <q-item-label>
+                <q-input
+                  outlined
+                  v-model='inputData.nickname'
+                  placeholder='昵称'
+                  dense
+                  square
+                >
+                </q-input>
+              </q-item-label>
+            </span>
+            <span class='col-xs-12 offset-sm-2 col-sm-6 offset-md-2 col-md-5 sc-design'>
+              <q-item-label class='q-pr-md q-mb-sm'>手机号码</q-item-label>
+              <q-item-label>
+                <q-input
+                  outlined
+                  v-model='inputData.telephone'
+                  placeholder='手机号码'
+                  dense
+                  square
+                >
+                </q-input>
+              </q-item-label>
+            </span>
+            <span class='col-xl-12 col-md-12 col-sm-12 col-xs-12'>
+              <q-item-label class='q-pr-md q-mb-sm'>留言内容</q-item-label>
+              <q-item-label>
+                <q-input
+                  class=''
+                  outlined
+                  type='textarea'
+                  v-model='inputData.content'
+                  placeholder='留言内容'
+                  dense
+                  square
+                >
+                </q-input>
+              </q-item-label>
+            </span>
+          </div>
         </q-card>
       </q-form>
     </div>
@@ -132,8 +182,8 @@ export default {
     return {
       article: {
         id: 0,
-        name: '请选择文件后查看',
-        description: '你还没选择文件呢',
+        name: '请选择征集后查看',
+        description: '你还没选择征集呢',
         owner: '',
         fileID: '',
         date: '1970/01/01',
@@ -141,6 +191,11 @@ export default {
       },
       pdf_url: null,
       departmentValue: [],
+      inputData: {
+        nickname: null,
+        telephone: null,
+        content: null
+      },
       advancedFormData: ADVANCED_FORM_DATA,
       show: false
     }
