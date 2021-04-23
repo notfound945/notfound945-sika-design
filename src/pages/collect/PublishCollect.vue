@@ -52,7 +52,7 @@
             <span class='col-xl-4 col-md-5 col-sm-6 col-xs-12 sc-design'>
               <q-item-label>
                 <q-file
-                  v-model='inputData.file'
+                  v-model='inputData.pdfFile'
                   value=''
                   label='文件大小 <= 20 MB'
                   max-file-size='20971520'
@@ -63,6 +63,31 @@
                     (value) => (value) || '请选择上传文件'
                   ]"
                   accept='.pdf' />
+              </q-item-label>
+            </span>
+          </div>
+          <div class='row q-gutter-y-sm q-my-md items-center'>
+            <span
+              class='col-sm-4 col-xs-12'
+              :class="{ 'justify-end': $q.screen.gt.xs }"
+            >
+              <q-item-label
+                class='q-pr-md'
+                :class="{ 'text-right': $q.screen.gt.xs }"
+              >附件文件:</q-item-label
+              >
+            </span>
+            <span class='col-xl-4 col-md-5 col-sm-6 col-xs-12 sc-design'>
+              <q-item-label>
+                <q-file
+                  v-model='inputData.adjunctFile'
+                  value=''
+                  label='附件文件大小 <= 20 MB'
+                  max-file-size='20971520'
+                  @rejected='onRejected'
+                  square
+                  dense
+                  accept='.rar, .zip, .7z' />
               </q-item-label>
             </span>
           </div>
@@ -83,7 +108,7 @@
                   class='q-pb-none'
                   outlined
                   type='textarea'
-                  v-model='inputData.description'
+                  v-model='inputData.content'
                   placeholder='征集说明'
                   dense
                   square
@@ -109,13 +134,11 @@
             <span class='col-xl-4 col-md-5 col-sm-6 col-xs-12'>
               <q-item-label>
                  <sc-date-range
-                   class=''
-                   value=''
                    v-model='inputData.dateRange'
                    ref='startEndDate'
                    :field-style="{ 'min-width': '253px' }"
                    :rules="[
-                    (value) => (value && value.length > 0) || '请选择征集期限'
+                    (val) => (val && val.length > 0) || '请选择征集期限'
                   ]"
                  />
               </q-item-label>
@@ -176,10 +199,11 @@ export default {
       basicFormData: BASIC_FORM_DATA,
       targetOption: 'public',
       inputData: {
-        file: null,
+        pdfFile: null,
+        adjunctFile: null,
         title: null,
         dateRange: null,
-        description: null
+        content: null
       },
       uploadProgress: [],
       uploading: null
@@ -188,11 +212,14 @@ export default {
   methods: {
     onSubmit() {
       const formData = new FormData()
-      formData.append('file', this.file)
-      formData.append('title', this.title)
-      formData.append('description', this.description)
+      formData.append('title', this.inputData.title)
+      formData.append('pdfFile', this.inputData.pdfFile)
+      formData.append('adjunctFile', this.inputData.adjunctFile)
+      formData.append('content', this.inputData.content)
+      formData.append('dateRange', this.inputData.dateRange)
       console.log('submit ', formData)
-      uploadFileRequest('/api/public-latest-file', formData).then(res => {
+      console.log(this.inputData.dateRange)
+      uploadFileRequest('/api/public-collect', formData).then(res => {
         console.log(res)
       }).catch(err => {
         console.log(err)

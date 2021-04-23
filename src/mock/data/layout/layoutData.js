@@ -629,7 +629,6 @@ function addTab(to) {
   let exist = false
   let currentTab = null
   for (let i = 0; i < accessTabs.length; ++i) {
-    console.log('accessTabs ', accessTabs[i])
     console.log('to ', to)
     if (accessTabs[i].to === to) {
       exist = true

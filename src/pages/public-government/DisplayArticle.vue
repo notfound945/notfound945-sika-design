@@ -20,7 +20,7 @@
               <q-item-label class='q-pr-md q-mb-sm'>发文机构</q-item-label>
               <q-item-label>
                 <span class='col-auto text-primary cursor-pointer'>
-                  {{ article.owner }}
+                  {{ departmentValue[article.department] }}
                 </span>
               </q-item-label>
             </span>
@@ -89,13 +89,29 @@
 <script>
 import ADVANCED_FORM_DATA from '@/mock/data/form/advancedFormData'
 import _ from 'lodash'
-import { postRequestBlob } from 'src/utils/axios'
+import { getRequest, postRequestBlob } from 'src/utils/axios'
 // import service from 'src/utils/request'
 
 export default {
   name: 'DisplayArticle',
   async mounted() {
     const query = this.$route.query
+    const department = await getRequest('/api/get-all-departments').then(res => {
+      return res.data
+    }).catch(() => {
+      return null
+    })
+    const departmentData = department.data
+    const temp = []
+    const temp2 = []
+    Object.keys(departmentData).forEach(function(key) {
+      temp.push({
+        label: departmentData[key].name,
+        value: departmentData[key].id
+      })
+      temp2.push(departmentData[key].name)
+    })
+    this.departmentValue = temp2
     if (!_.isUndefined(query.item)) {
       console.log(query.item)
       this.article = query.item
@@ -124,6 +140,7 @@ export default {
         time: '00:00:00'
       },
       pdf_url: null,
+      departmentValue: [],
       advancedFormData: ADVANCED_FORM_DATA,
       show: false
     }
