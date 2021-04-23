@@ -63,18 +63,22 @@ const routeDatas = [
     children: [
       {
         name: '发布征集',
+        group: '/collect',
         to: '/collect/publish-collect'
       },
       {
         name: '征集列表',
+        group: '/collect',
         to: '/collect/list-collect'
       },
       {
         name: '征集反馈',
+        group: '/collect',
         to: '/collect/callback-collect'
       },
       {
         name: '详情页',
+        group: '/collect',
         to: '/collect/display-collect'
       }
     ]
@@ -86,6 +90,11 @@ const routeDatas = [
     groupName: 'first',
     children: [
       {
+        name: '问卷中心',
+        group: '/survey',
+        to: '/survey/center-survey'
+      }
+      /* {
         name: '发起问卷',
         group: '/survey',
         to: '/survey/publish-survey'
@@ -104,7 +113,7 @@ const routeDatas = [
         name: '详情页',
         group: '/survey',
         to: '/survey/display-survey'
-      }
+      } */
     ]
   },
   {
@@ -141,6 +150,19 @@ const routeDatas = [
     ]
   },
   {
+    name: '用户管理',
+    icon: 'perm_identity',
+    group: '/user',
+    groupName: 'first',
+    children: [
+      {
+        name: '登录',
+        group: '/user',
+        to: '/user/login'
+      }
+    ]
+  }
+  /* {
     name: '表单页',
     icon: 'edit_road',
     group: '/form',
@@ -315,8 +337,7 @@ const routeDatas = [
         group: '/editor',
         to: '/editor/markdown'
       }
-    ]
-  }
+    ] */
 ]
 
 function queryList(routeDatas, tabs) {
@@ -608,6 +629,8 @@ function addTab(to) {
   let exist = false
   let currentTab = null
   for (let i = 0; i < accessTabs.length; ++i) {
+    console.log('accessTabs ', accessTabs[i])
+    console.log('to ', to)
     if (accessTabs[i].to === to) {
       exist = true
       currentTab = accessTabs[i]

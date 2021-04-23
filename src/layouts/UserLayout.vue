@@ -3,8 +3,10 @@
     <q-layout view="hHh LpR fff" style="font-family: 微软雅黑">
       <q-header class="bg-white text-primary shadow-1">
         <q-toolbar>
-          <q-toolbar-title> 登 录</q-toolbar-title>
-          <div>返 回</div>
+          <q-toolbar-title> <strong>登 录</strong> </q-toolbar-title>
+          <div>
+            <q-btn label='返回' flat @click='goBack'></q-btn>
+          </div>
         </q-toolbar>
       </q-header>
       <q-footer class="bg-white text-blue-grey-4">
@@ -56,6 +58,9 @@ export default {
   },
   methods: {
     topMargin() {
+    },
+    goBack() {
+      this.$router.go(-1)
     }
   },
   mounted: function() {

@@ -132,6 +132,17 @@ const routes = [
     ]
   },
   {
+    path: '/survey/center-survey',
+    name: '/survey/center-survey',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('pages/survey/CenterSurvey')
+      }
+    ]
+  },
+  {
     path: '/survey/publish-survey',
     name: '/survey/publish-survey',
     component: () => import('layouts/MainLayout.vue'),

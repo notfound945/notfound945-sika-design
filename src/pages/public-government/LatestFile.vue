@@ -137,6 +137,18 @@
                 <q-item-label
                   class='row text-body2 text-grey-7 items-center q-gutter-x-xs'
                 >
+                  <q-btn-group flat>
+                    <q-btn
+                      flat
+                      dense
+                      icon="visibility"
+                      :label="props.item.viewCount"
+                      size="12px"
+                      class="q-mr-sm"
+                      color="primary"
+                    />
+                    <q-separator vertical />
+                  </q-btn-group>
                   <q-chip
                     color='white'
                     text-color='primary'

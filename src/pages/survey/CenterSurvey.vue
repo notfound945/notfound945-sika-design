@@ -1,14 +1,14 @@
 <template>
   <div class="sc-design q-mb-md">
     <div class="row q-px-sm">
-        <iframe src="http://localhost:8080/druid/" class='trend-container' frameborder=0></iframe>
+      <iframe src="http://localhost:8181/#/surveylist" class='trend-container' frameborder=0></iframe>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'DBMonitor'
+  name: 'CenterSurvey'
 }
 </script>
 
