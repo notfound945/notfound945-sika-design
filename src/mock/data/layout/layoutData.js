@@ -10,7 +10,7 @@ const routeDatas = [
         group: '/dashboard',
         to: '/dashboard/analysis'
       },
-      {
+      /*  {
         name: '监控页',
         group: '/dashboard',
         to: '/dashboard/monitor'
@@ -19,7 +19,7 @@ const routeDatas = [
         name: '工作台',
         group: '/dashboard',
         to: '/dashboard/workplace'
-      },
+      }, */
       {
         name: '数据库监控',
         group: '/dashboard',
@@ -43,11 +43,11 @@ const routeDatas = [
         group: '/public-government',
         to: '/public-government/public-latest-file'
       },
-      {
+      /* {
         name: '部门动态',
         group: '/public-government',
         to: '/public-government/department-dynamic'
-      },
+      }, */
       {
         name: '详情页',
         group: '/public-government',
@@ -71,11 +71,11 @@ const routeDatas = [
         group: '/collect',
         to: '/collect/list-collect'
       },
-      {
-        name: '征集反馈',
-        group: '/collect',
-        to: '/collect/callback-collect'
-      },
+      /* {
+          name: '征集反馈',
+          group: '/collect',
+          to: '/collect/callback-collect'
+        }, */
       {
         name: '详情页',
         group: '/collect',
@@ -150,7 +150,7 @@ const routeDatas = [
     ]
   },
   {
-    name: '用户管理',
+    name: '后台管理',
     icon: 'perm_identity',
     group: '/user',
     groupName: 'first',

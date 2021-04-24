@@ -183,29 +183,33 @@ import { getRequest } from 'src/utils/axios'
 const types = ['全部', '教育部', '人力资源部', '国土资源部', '统计部']
 const ownersDefault = [
   {
-    label: '我自己',
-    value: '我自己',
+    label: '管理组',
+    value: 0,
     icon: 'mail'
   },
   {
-    label: '张小三',
-    value: '张小三',
+    label: '人力部门',
+    value: 1,
     icon: 'bluetooth'
   },
   {
-    label: '李泽瑞',
-    value: '李泽瑞',
+    label: '教育部门',
+    value: 2,
     icon: 'map'
   },
   {
-    label: '朱元璋',
-    value: '朱元璋',
+    label: '财务部门',
+    value: 3,
     icon: 'golf_course'
   },
   {
-    label: '姚明',
-    value: '姚明',
-    disable: true,
+    label: '环保部门',
+    value: 4,
+    icon: 'casino'
+  },
+  {
+    label: '交管部门',
+    value: 5,
     icon: 'casino'
   }
 ]
@@ -238,6 +242,8 @@ export default {
       temp2.push(departmentData[key].name)
     })
     this.departmentValue = temp2
+    this.owners = temp
+    console.log(temp)
   },
   data() {
     return {

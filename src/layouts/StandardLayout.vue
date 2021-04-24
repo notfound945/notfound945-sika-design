@@ -16,86 +16,10 @@
           icon="format_indent_increase"
           color="grey-8"
         />
-        <q-btn dense flat size="sm" class="q-mr-xs" v-show="$q.screen.gt.xs">
-          <q-avatar size="sm">
-            <q-img src="imgs/logo/sika-logo.png"/>
-          </q-avatar>
-        </q-btn>
+        <div class='text-h5 text-black'>民意征求系统中心</div>
         <q-space />
         <div class="q-gutter-xs q-ml-sm row items-center no-wrap">
-          <q-btn
-            round
-            flat
-            size="sm"
-            color="grey-8"
-            icon="notifications_none"
-            @click="openMessage"
-          >
-            <q-badge
-              color="negative"
-              style="padding: 2px 4px"
-              title-color="white"
-              floating
-              v-if="totalInformCount > 0"
-            >{{ totalInformCount }}
-            </q-badge>
-          </q-btn>
           <span class="inline-block">
-            <q-chip dense color="white" class="cursor-pointer q-ml-sm">
-               <q-avatar size="xs">
-                <q-img src="imgs/logo/sika-logo.png" />
-              </q-avatar>
-              <span
-                class="inline-block"
-                style="
-                  max-width: 50px;
-                  white-space: nowrap;
-                  text-overflow: ellipsis;
-                  overflow: hidden;
-                "
-              >Emailseeeeee</span
-              >
-              <q-menu
-                :offset="[0, 26]"
-                transition-show="jump-down"
-                transition-hide="jump-up"
-                :content-class="menuContentClass"
-              >
-                <q-list dense>
-                  <q-item clickable v-close-popup to="/account/center">
-                    <q-item-section
-                      avatar
-                      class="q-mr-sm q-pa-none"
-                      style="min-width: 0"
-                    >
-                      <q-icon name="person" size="xs" />
-                    </q-item-section>
-                    <q-item-section>个人中心</q-item-section>
-                  </q-item>
-                  <q-item clickable v-close-popup to="/account/settings">
-                    <q-item-section
-                      avatar
-                      class="q-mr-sm q-pa-none"
-                      style="min-width: 0"
-                    >
-                      <q-icon name="settings" size="xs" />
-                    </q-item-section>
-                    <q-item-section>个人设置</q-item-section>
-                  </q-item>
-                  <q-separator color="grey-4" />
-                  <q-item clickable v-close-popup to="/user/login">
-                    <q-item-section
-                      avatar
-                      class="q-mr-sm q-pa-none"
-                      style="min-width: 0"
-                    >
-                      <q-icon name="logout" size="xs" />
-                    </q-item-section>
-                    <q-item-section>退出登录</q-item-section>
-                  </q-item>
-                </q-list>
-              </q-menu>
-            </q-chip>
           </span>
         </div>
         <div>

@@ -80,11 +80,10 @@
           </div>
         </q-item-label>
       </q-card>
-      <q-form>
-
+      <q-form @submit='onSubmit' @reset='onReset'>
         <q-card square flat class='q-gutter-y-md q-my-md q-py-sm'>
           <div class='row q-px-sm q-mx-md items-center'>
-            <q-item-label class='text-body1'>留言内容</q-item-label>
+            <q-item-label class='text-body1'>征集意见</q-item-label>
           </div>
           <q-separator spaced='15px' />
           <div class='row q-gutter-y-lg q-px-lg items-center'>
@@ -115,20 +114,55 @@
               </q-item-label>
             </span>
             <span class='col-xl-12 col-md-12 col-sm-12 col-xs-12'>
-              <q-item-label class='q-pr-md q-mb-sm'>留言内容</q-item-label>
+              <q-item-label class='q-pr-md q-mb-sm'>征集意见</q-item-label>
               <q-item-label>
                 <q-input
                   class=''
                   outlined
                   type='textarea'
                   v-model='inputData.content'
-                  placeholder='留言内容'
+                  placeholder='请输入你的意见'
                   dense
                   square
                 >
                 </q-input>
               </q-item-label>
             </span>
+          </div>
+          <div class='row q-gutter-y-sm q-my-md items-center'>
+            <div
+              class='q-pt-sm offset-sm-4 col-xl-4 col-md-5 col-sm-6 col-xs-12'
+            >
+              <div class='row q-col-gutter-x-md'>
+                <div class='col text-left'>
+                  <q-btn
+                    class='no-border-radius'
+                    unelevated
+                    type='submit'
+                    :loading='loading'
+                    color='primary full-width'
+                    label='确认'
+                    size='md'
+                  >
+                    <template v-slot:loading>
+                      <q-spinner-hourglass class='on-left' />
+                      保存...
+                    </template>
+                  </q-btn>
+                </div>
+                <div class='col'>
+                  <q-btn
+                    class='no-border-radius'
+                    unelevated
+                    type='reset'
+                    color='grey full-width'
+                    label='清 除'
+                    size='md'
+                  >
+                  </q-btn>
+                </div>
+              </div>
+            </div>
           </div>
         </q-card>
       </q-form>
@@ -139,7 +173,7 @@
 <script>
 import ADVANCED_FORM_DATA from '@/mock/data/form/advancedFormData'
 import _ from 'lodash'
-import { getRequest, postRequestBlob } from 'src/utils/axios'
+import { getRequest, postRequest, postRequestBlob } from 'src/utils/axios'
 // import service from 'src/utils/request'
 
 export default {
@@ -201,6 +235,40 @@ export default {
     }
   },
   methods: {
+    async onSubmit() {
+      if (this.inputData.doContent != null) {
+        this.$q.notify({
+          position: 'top',
+          color: 'info',
+          textColor: 'white',
+          icon: 'cloud_done',
+          group: false,
+          html: true,
+          message: '留言回复成功！！'
+        })
+        const params = this.inputData
+        params.postDepartment = this.inputData.postDepartment.value
+        const result = await postRequest('/api/reply-message', params).then(res => {
+          return res
+        }).catch(() => {
+          return null
+        })
+        console.log(result)
+      } else {
+        this.$q.notify({
+          position: 'top',
+          color: 'error',
+          textColor: 'white',
+          icon: 'cloud_done',
+          group: false,
+          html: true,
+          message: '请填写留言信息'
+        })
+      }
+    },
+    onReset() {
+      this.inputData.doContent = null
+    },
     edit(index) {
       this.advancedFormData.memberData.columnDatas[index].edit = true
     },
