@@ -1,5 +1,5 @@
 <template>
-  <div class='sc-design'>
+  <div>
     <div class='bg-white q-pa-md'>
       <div class='text-h6 text-center'>
         <strong> {{ article.title }}</strong>
