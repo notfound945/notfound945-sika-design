@@ -50,7 +50,7 @@
                   </q-item-label>
                 </span>
               <span
-                class="col-sm-4 col-xs-12"
+                class="col-sm-12 col-xs-12"
                 :class="{ 'justify-end': $q.screen.gt.xs }"
               >
                 <RadioField/>

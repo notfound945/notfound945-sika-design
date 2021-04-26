@@ -93,8 +93,8 @@ const routeDatas = [
         name: '问卷中心',
         group: '/survey',
         to: '/survey/center-survey'
-      }
-      /* {
+      },
+      {
         name: '发起问卷',
         group: '/survey',
         to: '/survey/publish-survey'
@@ -113,7 +113,7 @@ const routeDatas = [
         name: '详情页',
         group: '/survey',
         to: '/survey/display-survey'
-      } */
+      }
     ]
   },
   {
