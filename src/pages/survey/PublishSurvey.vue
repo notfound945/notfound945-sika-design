@@ -45,9 +45,6 @@
                        label="添加填空项"
                      />
                   </q-item-label>
-                  <q-item-label>
-
-                  </q-item-label>
                 </span>
               <span
                 class="col-sm-12 col-xs-12"
