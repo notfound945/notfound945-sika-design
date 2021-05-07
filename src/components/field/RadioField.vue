@@ -22,7 +22,7 @@
             <q-input
               class='q-pb-none'
               outlined
-              v-model='title'
+              v-model='radioProps.title'
               placeholder='输入标题'
               dense
               square
@@ -33,7 +33,7 @@
           </q-item-label>
         </span>
         </div>
-        <div v-for='(value, index) in options' :key='index' class='row q-gutter-y-lg q-my-xs items-center'>
+        <div v-for='(item, index) in radioProps.options' :key='index' class='row q-gutter-y-lg q-my-xs items-center'>
         <span
           class='col-3'
           :class="{ 'justify-end': $q.screen.gt.xs }"
@@ -49,7 +49,7 @@
             <q-input
               class='q-pb-none'
               outlined
-              v-model='options[index].label'
+              v-model='item.label'
               placeholder='请输入选项内容'
               dense
               square
@@ -57,7 +57,6 @@
               :rules="[(val) => (val && val.length > 0) || '请填写选项']"
             >
             </q-input>
-
           </q-item-label>
         </span>
           <span class='col-1 text-right'>
@@ -109,7 +108,7 @@
       >
           <q-item-label
             class='q-pr-md text-h6'
-          >{{ title }}</q-item-label
+          >{{ radioProps.title }}</q-item-label
           >
         </span>
       </div>
@@ -120,7 +119,7 @@
             :class="{ 'text-left': $q.screen.gt.xs }">
           <q-option-group
             v-model='select'
-            :options='options'
+            :options='radioProps.options'
             color='primary'
           />
           </q-item-label>
@@ -134,22 +133,18 @@
 <script>
 export default {
   name: 'RadioField',
+  props: ['radioProps'],
   data() {
     return {
       loading: false,
       isEdit: true,
-      title: null,
-      test: null,
-      select: null,
-      options: [{
-        label: null,
-        value: 0
-      }]
+      select: null
     }
+  },
+  mounted() {
   },
   methods: {
     onSubmit() {
-      console.log('option ', this.options)
       this.isEdit = false
       console.log('submit')
     },
@@ -160,15 +155,16 @@ export default {
       this.isEdit = true
     },
     addOption(index) {
-      if (this.options.length < 6) {
-        this.options.push({
+      console.log(this.radioProps)
+      if (this.radioProps.options.length < 6) {
+        this.radioProps.options.push({
           label: null,
           value: index + 1
         })
       }
     },
     removeOption(index) {
-      this.options.splice(index, 1)
+      this.radioProps.options.splice(index, 1)
     }
   }
 }

@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-    <q-resize-observer :debounce="300" @resize="resize" />
+    <q-resize-observer :debounce="300" />
     <div class="row q-px-sm">
       <div class="col-md-3 col-sm-6 col-xs-12 q-px-sm q-mb-md">
         <sc-shadow>
@@ -172,9 +172,6 @@ export default {
     }
   },
   methods: {
-    resize() {
-      this.$refs.orderLine.resize()
-    },
     color(item) {
       if (item < 65) {
         return 'blue'

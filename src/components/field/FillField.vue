@@ -22,7 +22,7 @@
             <q-input
               class='q-pb-none'
               outlined
-              v-model='title'
+              v-model='fillProps.title'
               placeholder='输入标题'
               dense
               square
@@ -75,7 +75,7 @@
         >
           <q-item-label
             class='q-pr-md text-h6'
-          >{{ title }}</q-item-label
+          >{{ fillProps.title }}</q-item-label
           >
         </span>
         <span class='offset-3 col-7 q-ma-md'>
@@ -89,8 +89,7 @@
               placeholder='请输写内容'
               dense
               square
-              clearable
-              :rules="[(val) => (val && val.length > 0) || '请填写选项']"
+              disable
             />
           </q-item-label>
           <q-item-label v-else>
@@ -99,12 +98,10 @@
               outlined
               type='textarea'
               v-model='content'
-              placeholder='回复内容'
+              placeholder='仅预览'
               dense
               square
-              :rules="[
-                    (val) => (val && val.length > 0) || '请输入留言内容'
-                  ]"
+              disable
             />
           </q-item-label>
         </span>
@@ -117,11 +114,11 @@
 <script>
 export default {
   name: 'FillField',
+  props: ['fillProps'],
   data() {
     return {
       loading: false,
-      title: null,
-      content: '',
+      content: '仅预览',
       isEdit: true,
       isTextarea: true
     }

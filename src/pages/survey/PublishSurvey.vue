@@ -54,13 +54,13 @@
                   </q-item-label>
                 </span>
                 <span
-                  v-for='(n, index) in fieldList'
+                  v-for='(item, index) in fieldList'
                   :key='index'
                   class='col-sm-12 col-xs-12'
                   :class="{ 'justify-end': $q.screen.gt.xs }"
                 >
-                <RadioField v-if='n === 1' />
-                <FillField v-else-if='n === 2' />
+                <RadioField v-if='item.id === 1' :radioProps='item' />
+                <FillField v-else-if='item.id === 2' :fillProps='item' />
                 </span>
                 <span v-if='fieldList.length === 0'>
                   <q-item-label class='text-subtitle1 q-ma-md text-red'>
@@ -77,6 +77,7 @@
                       color='primary'
                       type='submit'
                       label='下一步'
+                      @click='getList'
                     />
                   </span>
                 </div>
@@ -84,7 +85,7 @@
               <q-separator spaced='20px' />
               <q-item-label class='text-grey-6 q-mt-md'>
                 <div class='text-body1 q-mb-md'>说明</div>
-                <div class='text-body2 q-my-xs'>要进行下一步，请完成表单添加</div>
+                <div class='text-body2 q-my-xs'>要进行下一步，请完成表单问题的添加</div>
                 <div class='text-body2'>
                   如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。如果需要，这里可以放一些关于产品的常见问题说明。
                 </div>
@@ -235,11 +236,29 @@ export default {
   methods: {
     addSelectOption() {
       console.log('add select ')
-      this.fieldList.push(1)
+      const selectObject = {
+        id: 1,
+        title: '',
+        type: 'selectType',
+        options: [{
+          label: null,
+          value: 0
+        }]
+      }
+      this.fieldList.push(selectObject)
     },
     addFillOption() {
-      this.fieldList.push(2)
+      const fillObject = {
+        id: 2,
+        title: '',
+        type: 'fillType',
+        options: []
+      }
       console.log('add fill')
+      this.fieldList.push(fillObject)
+    },
+    getList() {
+      console.log(this.fieldList)
     },
     oneOnSubmit() {
       this.step = 2
@@ -263,6 +282,12 @@ export default {
         html: true,
         message: '提交成功！！'
       })
+    }
+  },
+  computed: {
+    checkSelect: function () {
+      console.log(this.fieldList)
+      return this.fieldList
     }
   }
 }
