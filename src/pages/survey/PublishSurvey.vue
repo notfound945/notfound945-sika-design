@@ -1,5 +1,5 @@
 <template>
-  <div class='sc-design'>
+  <div>
     <div class='bg-white q-pa-md'>
       <div class='text-h6'>
         <strong>新建问卷</strong>
@@ -64,7 +64,7 @@
                 </span>
                 <span v-if='fieldList.length === 0'>
                   <q-item-label class='text-subtitle1 q-ma-md text-red'>
-                      <q-icon name="warning" size='md' />请点击上方按钮，添加对应问题。如若不这样，你将无法进行下一步。
+                      <q-icon name='warning' size='md' />请点击上方按钮，添加对应问题。如若不这样，你将无法进行下一步。
                   </q-item-label>
                 </span>
               </div>
@@ -72,12 +72,12 @@
                 <div class='row items-center'>
                 <span class='offset-sm-3 col-sm-auto col-xs-12'>
                     <q-btn v-if='fieldList.length > 0'
-                      unelevated
-                      class='no-border-radius'
-                      color='primary'
-                      type='submit'
-                      label='下一步'
-                      @click='getList'
+                           unelevated
+                           class='no-border-radius'
+                           color='primary'
+                           type='submit'
+                           label='下一步'
+                           @click='getList'
                     />
                   </span>
                 </div>
@@ -100,46 +100,78 @@
             :header-nav='step > 2'
           >
             <q-form class='full-width' @submit='towOnSubmit'>
-              <div class='row q-gutter-y-md'>
-                <q-item-label class='q-my-md offset-sm-3 col-sm-8 col-xs-12'>
-                  付款账户: {{ stepFormData.transferData.payerAccount }}
-                </q-item-label>
-                <q-item-label class='q-my-md offset-sm-3 col-sm-8 col-xs-12'>
-                  收款账户: {{ stepFormData.transferData.payeeAccount }}
-                </q-item-label>
-                <q-item-label class='q-my-md offset-sm-3 col-sm-8 col-xs-12'>
-                  收款人姓名: {{ stepFormData.transferData.payeeName }}
-                </q-item-label>
-                <q-item-label class='q-my-md offset-sm-3 col-sm-8 col-xs-12'>
-                  转账金额: {{ stepFormData.transferData.amount }}元
-                </q-item-label>
-              </div>
               <div class='row q-gutter-y-sm'>
               <span
-                class='offset-sm-3 col-sm-auto col-xs-12'
+                class='offset-1 col-3'
                 :class="{ 'justify-end': $q.screen.gt.xs }"
               >
                 <q-item-label
                   class='q-pr-md'
                   :class="{ 'text-right q-pt-sm': $q.screen.gt.xs }"
                 >
-                  支付密码:
+                  问卷标题:
                 </q-item-label>
               </span>
-                <span class='col-sm-auto col-xs-12'>
+                <span class='col-5'>
                 <q-item-label>
                   <q-input
-                    type='password'
-                    outlined
                     :rules="[
-                      val => val && val.length > 0 || '请输入密码',
-                      val => val && val === '123456' || '密码不正确'
+                      val => val && val.length > 0 || '请输入标题',
                     ]"
-                    v-model='stepFormData.transferData.payPassword'
+                    v-model='title'
                     dense
-                    square
                   >
                   </q-input>
+                </q-item-label>
+              </span>
+                <span
+                  class='offset-1 col-3'
+                  :class="{ 'justify-end': $q.screen.gt.xs }"
+                >
+                <q-item-label
+                  class='q-pr-md'
+                  :class="{ 'text-right q-pt-sm': $q.screen.gt.xs }"
+                >
+                  起止日期:
+                </q-item-label>
+              </span>
+                <span class='col-5'>
+                <q-item-label>
+                  <sc-date-range
+                    v-model='dateRange'
+                    ref='startEndDate'
+                    :field-style="{ 'min-width': '253px' }"
+                    :rules="[
+                    (val) => (val && val.length > 0) || '请选择起止日期'
+                  ]"
+                  />
+                </q-item-label>
+              </span>
+                <span
+                  class='offset-1 col-3'
+                  :class="{ 'justify-end': $q.screen.gt.xs }"
+                >
+                <q-item-label
+                  class='q-pr-md'
+                  :class="{ 'text-right q-pt-sm': $q.screen.gt.xs }"
+                >
+                  备注:
+                </q-item-label>
+              </span>
+                <span class='col-5'>
+                <q-item-label>
+                <q-input
+                  class='q-pb-none'
+                  outlined
+                  type='textarea'
+                  v-model='description'
+                  placeholder='问卷备注'
+                  dense
+                  square
+                  :rules="[
+                    (val) => (val && val.length > 0) || '请填写问卷的描述'
+                  ]"
+                />
                 </q-item-label>
               </span>
               </div>
@@ -178,34 +210,24 @@
                 <q-item-label class='q-pb-sm'>
                   <q-icon name='check_circle' color='positive' size='70px' />
                 </q-item-label>
-                <q-item-label class='text-h6 q-py-sm'>操作成功</q-item-label>
-                <q-item-label caption>预计两小时内到账</q-item-label>
+                <q-item-label class='text-h6 q-py-sm'>{{ title }} 创建成功</q-item-label>
+                <q-item-label caption>你可以在问卷列表中查看此问卷</q-item-label>
                 <q-item-label class='q-pt-lg'>
                   <q-btn
                     class='no-border-radius'
                     unelevated
                     color='primary'
                     @click='againTransfer'
-                    label='再转一笔'
+                    label='再创建一个'
                   />
                   <q-btn
                     unelevated
                     @click='searchOrder'
                     color='secondary'
-                    label='查看账单'
+                    label='查看问卷'
                     class='q-ml-sm no-border-radius'
                   />
                 </q-item-label>
-              </div>
-              <div class='text-left inline-block q-ml-xl col-sm-auto col-xs-12'>
-                <q-item-label class='q-py-sm'>
-                  付款账户: {{ stepFormData.transferData.payerAccount }}
-                </q-item-label>
-                <q-item-label class='q-py-sm'>
-                  收款账户: {{ stepFormData.transferData.payeeAccount }}
-                </q-item-label>
-                <q-item-label class='q-py-sm'>收款人姓名: {{ stepFormData.transferData.payeeName }}</q-item-label>
-                <q-item-label class='q-py-sm'>转账金额: {{ stepFormData.transferData.amount }}元</q-item-label>
               </div>
             </q-card-section>
           </q-step>
@@ -219,18 +241,24 @@
 import STEP_FORM_DATA from '@/mock/data/form/stepFormData'
 import RadioField from 'components/field/RadioField'
 import FillField from 'components/field/FillField'
+import ScDateRange from 'components/common/ScDateRange'
+import { postRequest } from 'src/utils/axios'
 
 export default {
   name: 'PublishSurvey',
   components: {
     RadioField,
-    FillField
+    FillField,
+    ScDateRange
   },
   data() {
     return {
       stepFormData: STEP_FORM_DATA,
       step: 1,
-      fieldList: []
+      fieldList: [],
+      title: '',
+      dateRange: '',
+      description: ''
     }
   },
   methods: {
@@ -263,7 +291,19 @@ export default {
     oneOnSubmit() {
       this.step = 2
     },
-    towOnSubmit() {
+    async towOnSubmit() {
+      const params = {
+        title: this.title,
+        fieldList: this.fieldList,
+        dateRange: this.dateRange,
+        description: this.description
+      }
+      const result = await postRequest('/api/add-survey', params).then(res => {
+        return res
+      }).catch(() => {
+        return null
+      })
+      console.log(result)
       this.step = 3
     },
     againTransfer() {
@@ -285,7 +325,7 @@ export default {
     }
   },
   computed: {
-    checkSelect: function () {
+    checkSelect: function() {
       console.log(this.fieldList)
       return this.fieldList
     }

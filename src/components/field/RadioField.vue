@@ -118,6 +118,7 @@
             class='q-pr-md'
             :class="{ 'text-left': $q.screen.gt.xs }">
           <q-option-group
+            inline
             v-model='select'
             :options='radioProps.options'
             color='primary'

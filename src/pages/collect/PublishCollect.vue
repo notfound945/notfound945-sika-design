@@ -128,7 +128,7 @@
               <q-item-label
                 class='q-pr-md'
                 :class="{ 'text-right': $q.screen.gt.xs }"
-              >征集期限:</q-item-label
+              >起止日期:</q-item-label
               >
             </span>
             <span class='col-xl-4 col-md-5 col-sm-6 col-xs-12'>
@@ -138,7 +138,7 @@
                    ref='startEndDate'
                    :field-style="{ 'min-width': '253px' }"
                    :rules="[
-                    (val) => (val && val.length > 0) || '请选择征集期限'
+                    (val) => (val && val.length > 0) || '请选择起止日期'
                   ]"
                  />
               </q-item-label>

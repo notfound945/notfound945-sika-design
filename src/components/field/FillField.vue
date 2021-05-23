@@ -86,10 +86,9 @@
               class='q-pb-none'
               outlined
               v-model='content'
-              placeholder='请输写内容'
+              placeholder='仅预览内容'
               dense
               square
-              disable
             />
           </q-item-label>
           <q-item-label v-else>
@@ -98,10 +97,9 @@
               outlined
               type='textarea'
               v-model='content'
-              placeholder='仅预览'
+              placeholder='仅预览内容'
               dense
               square
-              disable
             />
           </q-item-label>
         </span>
@@ -118,14 +116,13 @@ export default {
   data() {
     return {
       loading: false,
-      content: '仅预览',
+      content: '仅预览内容',
       isEdit: true,
       isTextarea: true
     }
   },
   methods: {
     onSubmit() {
-      console.log('option ', this.options)
       this.isEdit = false
       console.log('submit')
     },
